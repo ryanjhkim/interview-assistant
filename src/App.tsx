@@ -24,8 +24,6 @@ function App() {
     setMessages((prev) => [...prev, userMessage]);
     setInput('');
     
-    console.log(userMessage.text);
-
     try {
       const response = await bedrockClient.send(
         new InvokeModelCommand(
@@ -48,9 +46,6 @@ function App() {
 
       const decodedResponseBody = new TextDecoder().decode(response.body);
       const responseBody = JSON.parse(decodedResponseBody);
-
-      console.log(responseBody);
-
       const botMessage = { sender: 'bot', text: responseBody.results[0].outputText };
       setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
